@@ -1,0 +1,57 @@
+public class MyClass 
+{
+    Node head;
+    class node
+    {
+        int data;
+        Node next;
+        Node(int d)
+        {
+            data=d;
+            next=null;
+        }
+    }
+    public boolean duplicates(Node nd)  //// solution
+    {
+        HashSet<Node> set=new HashSet();
+        while(nd!=null)
+        {
+            if(set.contains(nd))return true;
+            set.add(ns);
+            nd=nd.next;
+        }
+        return false;
+    }
+    public static LinkedList insert(LinkedList list,int data)
+    {
+        Node new_node=new Node(data);
+        new_node.next=null;
+        if(list.head==null)
+        {
+            list.head=new_node;
+        }
+        else
+        {
+            Node last=list.head;
+            while(last.next!=null)
+            {
+                last=last.next;
+            }
+            last.next=new_node;
+        }
+        return list;
+    }
+    public static void main(String args[]) 
+    {
+        LinkedList list=new LinkedList();
+        list=insert(list,10);
+        list=insert(list,1);
+        list=insert(list,20);
+        list=insert(list,30);
+        list=insert(list,1);
+        list=insert(list,4);
+        
+
+      System.out.println("Sum of x+y = " + print(list));
+    }
+}
