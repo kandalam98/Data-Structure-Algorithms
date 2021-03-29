@@ -1,0 +1,143 @@
+public class LinkedList<T> {
+ 
+	//head Node of LinkedList
+	private Node<T> head;
+	
+	//This inner class represent Node in Linked List
+	private static class Node<T>{
+		private T data;
+		private Node<T> next;
+	
+		public Node(T data) {
+			super();
+			this.data = data;
+			this.next = null;
+		}
+	}
+	
+	//Method to insert Node in Linked List
+	public void insert(Node<T> newNode) {
+		if(isEmpty()) {
+			head = newNode;
+		}else {
+			Node<T> current = head;
+			while(current.next !=null) {
+				current = current.next;
+			}
+			
+			current.next =  newNode;
+		}
+	}
+ 
+	//Check if Linked is empty
+	private boolean isEmpty() {
+		return head == null;
+	}
+	
+	//Method to display linked List
+	public void displayLinkedList() {
+		Node<T> current = head;
+		while(current !=null) {
+			System.out.print(current.data+" ");
+			current = current.next;
+		}
+	}
+	
+	//Method to check whether LinkedList has loop/cycle or not
+	public boolean isCyclicLinkedList() {
+		Node<T> slowReference = head;
+		Node<T> fastReference = head;
+		
+		while (slowReference != null && fastReference !=null && fastReference.next != null) {
+			fastReference = fastReference.next.next;
+			slowReference = slowReference.next;
+			
+			if(slowReference == fastReference)
+				return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * Function to find start node of loop in 
+	 * Singly LinkedList in java 
+	 * @return Start node of loop in LinkedList
+	 */
+	public Node<T> findStartNodeOfTheLoop() {
+ 
+		boolean isLoop = false;
+ 
+		Node<T> fastReference = head;
+		Node<T> slowReference = head;
+ 
+		while (fastReference != null && fastReference.next != null) {
+			fastReference = fastReference.next.next;
+			slowReference = slowReference.next;
+			if (slowReference == fastReference) {
+				isLoop = true;
+				break;
+			}
+ 
+		}
+		if (isLoop) {
+			slowReference = head;
+			while (slowReference != fastReference) {
+				slowReference = slowReference.next;
+				fastReference = fastReference.next;
+			}
+		} else {
+			slowReference = null;
+		}
+		return slowReference;
+	}
+	
+	/**
+	 * Function to remove loop in LinkedList
+	 * @param startNode of LinkedList
+	 */
+	public void removeLoopFromLinkedList(Node<T> startNode) {
+		Node<T> fastReference = startNode;
+		Node<T> slowReference = startNode;
+
+		while (fastReference.next != slowReference) {
+			fastReference = fastReference.next;
+		}
+		fastReference.next = null;
+	}
+	
+	
+	public static void main(String[] args) {
+		Node<Integer> node = new Node<Integer>(2);
+		
+		LinkedList<Integer> linkedList = new LinkedList<>();
+		
+		linkedList.insert(node);
+		linkedList.insert(new Node<Integer>(5));
+		linkedList.insert(new Node<Integer>(8));
+		linkedList.insert(new Node<Integer>(40));
+		linkedList.insert(new Node<Integer>(10));
+		linkedList.insert(new Node<Integer>(90));
+		linkedList.insert(node);
+		
+		boolean cyclicLinkedList = linkedList.isCyclicLinkedList();
+		if(cyclicLinkedList)
+			System.out.println("Loop is detected in LinkedList");
+		else
+			System.out.println("Loop is not detected in LinkedList");
+		
+		Node<Integer> findStartNodeOfTheLoop = linkedList.findStartNodeOfTheLoop();
+		if(findStartNodeOfTheLoop != null)
+		System.out.println("Start node of the loop in Singly LinkedList is:"+findStartNodeOfTheLoop.data);
+		
+		/*Before Removing loop from LinkedList
+		 * If you try to display LinkedList then it will go
+		 * in infinite loop. To test it just un-comment line of code*/
+		//linkedList.displayLinkedList();
+		
+		if(findStartNodeOfTheLoop != null) {
+			System.out.println("After removing the loop from LinkedList:");
+			linkedList.removeLoopFromLinkedList(findStartNodeOfTheLoop);
+			linkedList.displayLinkedList();
+		}
+	}
+}
