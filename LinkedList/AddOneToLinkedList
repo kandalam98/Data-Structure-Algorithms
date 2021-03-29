@@ -1,0 +1,41 @@
+    public Node addOne(Node head)
+    {
+        head=reverse(head);
+        head=addingone(head);
+        return reverse(head);
+    }
+    public Node reverse(Node head)
+    {
+        Node prev=null;
+        Ndoe next=null;
+        Node curr=head;
+        while(curr!=null)
+        {
+            next=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=next;
+        }
+        return prev;
+    }
+    public Node addingone(Node head)
+    {
+        Node curr=head;
+        int carry=1;
+        int sum=0;
+        Node temp=null;
+        while(head!=null)
+        {
+            sum=carry+head.data;
+            carry=(sum>=10) ? 1 :0;
+            sum=sum%10;
+            head.data=sum;
+            temp=head;
+            head=head.next;
+        }
+        if(carry>0)
+        {
+            temp.next=newnode(carry);
+        }
+        return curr;
+    }
