@@ -1,0 +1,30 @@
+class Solution {
+    public ListNode rotateRight(ListNode head, int k) 
+    {
+        // if len(LL) >= k then we use len - k to reach new head
+        // if len(ll) <=k  we use len - k%count to reach new head
+        if(head==null)return head;
+        ListNode temp=head;
+        ListNode tail=null;
+        int count=0;
+        while(temp!=null)
+        {
+            count++;
+            tail=temp;
+            temp=temp.next;                             
+        }
+        tail.next=head;// make a circle
+        int step=count-Math.min(k,k%count);
+        while(step-->0)
+        {
+            tail=head;
+            head=head.next;
+        }
+        tail.next=null;
+        return head;       
+    }
+}
+Input: 1->2->3->4->5
+Ouput :
+Rotate 1 : 5->1->->2->3->4
+Rotate 2 : 4->5->1->->2->3
