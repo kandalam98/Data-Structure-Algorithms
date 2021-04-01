@@ -35,7 +35,7 @@ class Solution {
     {
         ListNode midprev=null;
         ListNode fast=h;
-        while(fast!=null && fast.next!=null)
+        while(fast!=null && fast.next!=null) //if we are finding Middle ele in circular LL . instead 0f null write head
         {
             midprev=(midprev==null) ? h : midprev.next;
             fast=fast.next.next;
