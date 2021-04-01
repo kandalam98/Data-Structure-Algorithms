@@ -30,7 +30,8 @@ class Solution {
         curr.next=(left!= null) ? left : right;
         return temp.next;
     }
-    public ListNode getMiddle(ListNode h)
+    public ListNode getMiddle(ListNode h) //if the linkedlist contains even elements check if(fast.next.next==head)fast=fast.next it moves to tail element. incase if we want to
+                                               use for another problems (only in circular LL)
     {
         ListNode midprev=null;
         ListNode fast=h;
@@ -43,4 +44,15 @@ class Solution {
         midprev.next=null;
         return mid;
     }
+}
+public ListNode lastElement(ListNode head)
+{
+    ListNode tail=null;
+    ListNode temp=head;
+    while(temp!=null)
+    {
+        tail=temp;
+        temp=temp.next;
+    }
+    return tail;
 }
