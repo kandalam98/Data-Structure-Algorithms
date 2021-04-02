@@ -1,0 +1,42 @@
+Class Node
+{
+    Node left;
+    Node right;
+    Node parent;
+    int data;
+    Node(int data)
+    {
+        this.data=data;
+        left=null;
+        right=null;
+        parent=null;
+    }
+}
+public class MyClass {
+
+    public inordeSucc(Node input)
+    {
+        if(input==null)return null;
+        if(input.right!=null)
+        {
+            return leftmost(input.right);
+        }
+        Node parent=input.parent;
+        Node child=input;
+        while(parent.right==child)
+        {
+            child=parent;
+            parent=parent.parent;
+        }
+        return parent;
+    }
+    public int leftmost(Node root)
+    {
+        if(root==null)return null;
+        while(root!=null && root.left!=null)
+        {
+            root=root.left;
+        }
+        return root.data;
+    }
+}
