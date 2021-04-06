@@ -1,0 +1,40 @@
+class Solution {
+public ListNode deleteDuplicates(ListNode head) {
+	if (head == null) return head;
+	ListNode hh = new ListNode(-1, head);
+	ListNode pre = hh, curr = null, next = null;
+	while ((curr = pre.next) != null && (next = curr.next) != null) {
+		boolean r = false;
+		while (next != null && curr.val == next.val) {
+			r = true;
+			next = next.next;
+		}
+		if (r) {
+			pre.next = next;
+			continue;
+		}
+		pre = pre.next;
+	}
+	return hh.next;
+}
+}
+
+///2nd method
+
+
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) 
+    {
+        if(head==null || head.next==null)return head;
+        if(head.val==head.next.val)
+        {
+            while(head.next!=null && head.val==head.next.val)
+            {
+                head=head.next;
+            }
+            return deleteDuplicates(head.next);
+        }
+        head.next=deleteDuplicates(head.next);
+        return head;
+    }
+}
